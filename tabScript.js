@@ -1,5 +1,5 @@
 var button = document.createElement("button");
-button.innerHTML = "Do Something";
+button.innerHTML = "Display Tabs Info";
 
 var body = document.getElementsByTagName("body")[0];
 body.appendChild(button);
@@ -7,95 +7,42 @@ body.appendChild(button);
 
 
 button.addEventListener ("click", function() {
-	// var masterString = [];
-	var masterString = "";
 
+	//This is where all the Tab info goes, with each line being a new element
+	var masterString = [];
+
+	//Get all tabs, and for each tab
 	chrome.tabs.query({active: false}, function(tabs) {
 		tabs.forEach(function(tab){
+			//For each contentSetting(ex. camera, location, microphone etc)
 			Object.keys(chrome.contentSettings).forEach(function(key){
 						if(key.charAt(0) == key.charAt(0).toLowerCase()){
 								chrome.contentSettings[key].get({primaryUrl: tab.url}, function (details){
+									masterString.push({id: tab.id, setting: key, content: (tab.url + " " + key + ": " + details.setting + " " + "<br/>")});
 									// document.write(tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>");
-									masterString += tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>";
+									// masterString += tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>";
 							});
 						}
 			});
 		});
 	});
+
+	//Timeout to give enough time for all the callbacks to complete
 	setTimeout(function()
     {
-    	// document.write("Hi!");
-    	document.write(masterString);
+    	//Sort our data based on 1. Tab ID 2. ContentSetting String
+		masterString.sort(function(item1, item2){
+			if(item1.id - item2.id == 0){
+				if(item1.setting.charCodeAt(0) - item2.setting.charCodeAt(0) == 0)
+					return item1.setting.charCodeAt(1) - item2.setting.charCodeAt(1);
+				return item1.setting.charCodeAt(0) - item2.setting.charCodeAt(0);
+			}
+			return item1.id - item2.id;
+		});
+
+	//Print out all the tab info
+	masterString.forEach(function(line){
+			document.write(line.content);
+		});
     }, 100);
-	
-	// document.write(masterString);
-	// chrome.contentSettings.forEach(function(item, index, array){
-	// 			// .get({primaryUrl: item.url}, function(details){
-	// 			console.log("+1<br/>");
-	// 		});
-	chrome.tabs.query({active: false}, function(tabs) {
-		// document.write("Hii");
-		// var tabsInfo = "The urls are:<br />";
-		// tabs.forEach(function(item, index, array){
-		// 	tabsInfo += "Tab #" + index + ": url: " + item.url + "<br />";
-		// 	tabsInfo += "The content settings are: <br />";
-
-		// 	chrome.contentSettings['images'].get({primaryUrl: item.url}, function (details){
-
-		// 		//This will give you whether the setting is allowed/blocked:
-		// 		// alert("The images setting for " + item.url + " is " + details.setting);
-		// 	});
-
-		// });
-
-		// tabs.forEach(function(item, index, array){
-
-		// 	// for(var key in chrome.contentSettings){
-		// 	// 	if(chrome.contentSettings.hasOwnProperty(key) && key.charAt(0) == key.charAt(0).toLowerCase()){
-		// 	// 		chrome.contentSettings[key].get({primaryUrl: item.url}, function(details){
-		// 	// 			console.log(item.url + "[" + key + "]: " + details.setting);
-		// 	// 		});
-		// 	// 	}
-		// 	// }
-		// });
-		// chrome.contentSettings.get({primaryUrl: tabs[0].url}, function(details){
-		// 	tabsInfo += "url: " + tabs[0].url;
-		// });
-		// $("p").append("Test <br/>");
-		// chrome.contentSettings[key].get({primaryUrl: item.url}, function(details){
-		// 	console.log(item.url + "[" + key + "]: " + details.setting);
-		// };
-
-		// tabsInfo += "Keys:<br />";
-		// for(var key in chrome.contentSettings){
-		// 	if(chrome.contentSettings.hasOwnProperty(key) && key.charAt(0) == key.charAt(0).toLowerCase()){
-		// 		tabsInfo += key + ": " 
-		// 						// + chrome.contentSettings[key]
-		// 						+ "<br /> <br />";
-		// 		chrome.contentSettings[key].get({primaryUrl: tabs[0].url}, function(details){
-		// 			// tabsInfo += details.setting;
-		// 			console.log(tabs[0].url + "[" + key + "]: " + details.setting);
-		// 			// console
-		// 			 // $("p").append("Test <br/>");
-		// 			// alert(details.setting);
-		// 			// tabsInfo += details + "<br />";
-		// 			// tabsInfo += "sdasdasd"+ "<br />";
-		// 		});
-
-		// 		// if(chrome.contentSettings[key].hasOwnProperty("ALLOW")){
-		// 		// 	tabsInfo += "ALLOW - " + chrome.contentSettings[key].ALLOW + "<br/>";
-		// 		// }
-		// 	// for(var key2 in chrome.contentSettings[key]){
-		// 	// 		tabsInfo += "Properties:<br />";
-		// 	// 		if(chrome.contentSettings[key].hasOwnProperty(key2)){
-		// 	// 			tabsInfo += key2 + " ";
-		// 	// 		}
-		// 	// 		tabsInfo += "<br />";
-		// 	// 	}
-		// 	}
-		// }
-
-		// document.write(tabsInfo);
-	});
-
 });
