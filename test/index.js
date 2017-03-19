@@ -32,7 +32,8 @@ $(document).ready(function () {
             keyText = keyText.charAt(0).toUpperCase() + keyText.slice(1);
             theItems.push({
               text: keyText,
-              count: counter * 7
+              count: counter * 7,
+              key: key
             });
           }
         });
