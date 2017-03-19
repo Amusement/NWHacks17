@@ -6,28 +6,24 @@ $(document).ready(function () {
     //viewBoxSize: => use @default
     innerRadius: 600 / 3.5,
     //outerRadius: => use @default
-    radiusMin: 50,
+    radiusMin: 35,
     //radiusMax: use @default
     //intersectDelta: use @default
     //intersectInc: use @default
     //circleColor: use @default
     data: {
-      items: [
-
-        {text: "popups", count: "236"},
-        {text: "camera", count: "382"},
-        {text: "images", count: "170"},
-        {text: "javascript", count: "123"},
-        {text: "location", count: "12"},
-        {text: "microphone", count: "170"},
-        {text: "mouselock", count: "382"},
-        {text: "notifications", count: "10"},
-        {text: "plugins", count: "170"},
-        {text: "cookies", count: "170"},
-        {text: "automaticDownloads", count: "170"},
-        {text: "aasdfutomaticDownloads", count: "170"},
-
-      ],
+      items: function(){
+        var theItems = [];
+        var counter = 1;
+        Object.keys(chrome.contentSettings).forEach(function(key){
+          // console.log(key);1
+          if(key.charAt(0) == key.charAt(0).toLowerCase() && counter <= 15){
+            counter = counter + 1;
+            theItems.push({text: key, count: counter * 7});
+          }
+        });
+        return theItems;
+    }(),
       eval: function (item) {return item.count;},
       classed: function (item) {return item.text.split(" ").join("");}
     },
@@ -79,7 +75,7 @@ $(document).ready(function () {
                 fill: "white"
               },
               attr: {
-                dy: "20px",
+                dy: "0px",
                 x: function (d) {return d.cx;},
                 y: function (d) {return d.cy;}
               }
@@ -87,12 +83,12 @@ $(document).ready(function () {
           ],
           centralFormat: [
             {// Line #0
-              style: {"font-size": "50px"},
+              style: {"font-size": "0px"},
               attr: {}
             },
             {// Line #1
               style: {"font-size": "30px"},
-              attr: {dy: "40px"}
+              attr: {dy: "10px"}
             }
           ]
         }

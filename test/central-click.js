@@ -11,14 +11,14 @@ d3.svg.BubbleChart.define("central-click", function (options) {
       self.event.on("click", function(node) {
         if (node.selectAll("text.central-click")[0].length === 1) {
             var key = (node[0][0].__data__.item.text);
-            var message = "Information for " + key;
+            var message = "Property information for " + key + "\n\n";
             
             //Get all tabs, and for each tab
             chrome.tabs.query({active: false}, function(tabs) {
                 tabs.forEach(function(tab){
                     //For each contentSetting(ex. camera, location, microphone etc)
                             chrome.contentSettings[key].get({primaryUrl: tab.url}, function (details){
-                                message += "Site: " + tab.url + "; setting: " + details.setting + "\n";
+                                message += "Site: " + tab.url + " has setting: " + details.setting + "\n\n";
                                 //masterString.push({id: tab.id, setting: key, content: (tab.url + " " + key + ": " + details.setting + " " + "<br/>")});
                                 // document.write(tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>");
                                 // masterString += tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>";
