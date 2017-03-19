@@ -25,6 +25,9 @@ button.addEventListener ("click", function() {
 						}
 			});
 		});
+		
+		// document.write(urls);
+		document.getElementById('my-object').innerHTML += urls;
 	});
 
 	//Timeout to give enough time for all the callbacks to complete
