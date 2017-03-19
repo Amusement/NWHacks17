@@ -10,7 +10,7 @@ d3.svg.BubbleChart.define("central-click", function (options) {
       var fn = original.apply(this, arguments);
       self.event.on("click", function(node) {
         if (node.selectAll("text.central-click")[0].length === 1) {
-            var key = (node[0][0].__data__.item.text);
+            var key = (node[0][0].__data__.item.content);
             var message = "Property information for " + key + "\n\n";
             
             //Get all tabs, and for each tab

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+  $(document).ready(function () {
   var bubbleChart = new d3.svg.BubbleChart({
     supportResponsive: true,
     //container: => use @default
@@ -19,7 +19,7 @@ $(document).ready(function () {
           // console.log(key);1
           if(key.charAt(0) == key.charAt(0).toLowerCase() && counter <= 15){
             counter = counter + 1;
-            theItems.push({text: key, count: counter * 7});
+            theItems.push({text: key, content: key, count: counter * 7});
           }
         });
         return theItems;
