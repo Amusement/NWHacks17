@@ -38,7 +38,7 @@ window.scrollTo(0, 100);
 var startLength = 350;
 var leftLineLengthRatio = Math.random() * 0.5 + 0.45;
 var rightLineLengthRatio = Math.random() * 0.5 + 0.45;
-var leftAngle = Math.floor(Math.random() * 90);
+var WleftAngle = Math.floor(Math.random() * 90);
 var rightAngle = Math.floor(Math.random() * 90);
 var thickness = Math.floor(1 + Math.random() * 5);
 
