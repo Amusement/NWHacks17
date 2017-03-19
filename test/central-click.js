@@ -10,8 +10,28 @@ d3.svg.BubbleChart.define("central-click", function (options) {
       var fn = original.apply(this, arguments);
       self.event.on("click", function(node) {
         if (node.selectAll("text.central-click")[0].length === 1) {
-          alert("Hello there!\nCentral bubble is clicked." + JSON.stringify(node[0][0].__data__.item));
+            var key = (node[0][0].__data__.item.text);
+            var message = "Information for " + key;
+            
+            //Get all tabs, and for each tab
+            chrome.tabs.query({active: false}, function(tabs) {
+                tabs.forEach(function(tab){
+                    //For each contentSetting(ex. camera, location, microphone etc)
+                            chrome.contentSettings[key].get({primaryUrl: tab.url}, function (details){
+                                message += "Site: " + tab.url + "; setting: " + details.setting + "\n";
+                                //masterString.push({id: tab.id, setting: key, content: (tab.url + " " + key + ": " + details.setting + " " + "<br/>")});
+                                // document.write(tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>");
+                                // masterString += tab.id + " " + key + ": " + details.setting + " " + tab.url + "<br/>";
+                        });
+                });
+                
+                // document.write(urls);
+            });
+            setTimeout(function() {
+                alert(message);
+            },100);
         }
+
       });
       return fn;
     };

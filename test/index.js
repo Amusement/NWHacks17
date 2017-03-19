@@ -13,15 +13,20 @@ $(document).ready(function () {
     //circleColor: use @default
     data: {
       items: [
-        {text: "Java", count: "236"},
-        {text: ".Net", count: "382"},
-        {text: "Php", count: "170"},
-        {text: "Ruby", count: "123"},
-        {text: "D", count: "12"},
-        {text: "Python", count: "170"},
-        {text: "image", count: "382"},
-        {text: "Pascal", count: "10"},
-        {text: "Something", count: "170"},
+
+        {text: "popups", count: "236"},
+        {text: "camera", count: "382"},
+        {text: "images", count: "170"},
+        {text: "javascript", count: "123"},
+        {text: "location", count: "12"},
+        {text: "microphone", count: "170"},
+        {text: "mouselock", count: "382"},
+        {text: "notifications", count: "10"},
+        {text: "plugins", count: "170"},
+        {text: "cookies", count: "170"},
+        {text: "automaticDownloads", count: "170"},
+        {text: "aasdfutomaticDownloads", count: "170"},
+
       ],
       eval: function (item) {return item.count;},
       classed: function (item) {return item.text.split(" ").join("");}
@@ -53,7 +58,7 @@ $(document).ready(function () {
               textField: "count",
               classed: {count: true},
               style: {
-                "font-size": "28px",
+                "font-size": "0px",
                 "font-family": "Source Sans Pro, sans-serif",
                 "text-anchor": "middle",
                 fill: "white"
