@@ -34,25 +34,29 @@ var body = document.getElementsByTagName("body")[0];
 // };
 
 // tabOpen();
+window.scrollTo(0, 100);
+var startLength = 350;
 var leftLineLengthRatio = Math.random() * 0.5 + 0.45;
 var rightLineLengthRatio = Math.random() * 0.5 + 0.45;
 var leftAngle = Math.floor(Math.random() * 90);
 var rightAngle = Math.floor(Math.random() * 90);
-
-console.log("leftLineLengthRatio " + leftLineLengthRatio + ", rightLineLengthRatio " + rightLineLengthRatio + ", leftAngle " + leftAngle + ", rightAngle " + rightAngle);
+var thickness = Math.floor(1 + Math.random() * 5);
 
 var counter = 0;
 function fract(x, y, length, angle){
 	setTimeout(function(){
 		var canvas = document.querySelector("canvas");
 		var context = canvas.getContext("2d");
+		context.strokeStyle = "rgba(" + (Math.floor(255 * Math.random())) + ", " + (Math.floor(255 * Math.random())) + ", " + (Math.floor(Math.random() * 255)) + ", 1.0)"; 
 		context.beginPath();
 		context.moveTo(x, y);
+		context.lineWidth = thickness;
 		context.lineTo(x + Math.sin(angle) * length, 
 						y + Math.cos(angle) * length);
+		
 		context.stroke();
 		counter += 1;
-		if(counter < 650){
+		if(counter < 750){
 			fract(x + Math.sin(angle) * length,
 					y + Math.cos(angle) * length,
 					length * leftLineLengthRatio,
@@ -61,15 +65,39 @@ function fract(x, y, length, angle){
 					y + Math.cos(angle) * length,
 					length * rightLineLengthRatio,
 					angle + rightAngle);
+		}else{
+			// refresher();
 		}
 		// context.fillStyle = "red";
 		// context.fillRect(10, 10, 100, 50);
 		// var circle = document.querySelector("circle");
 		// circle.setAttribute("fill", "cyan");
-	}, 75);
+	}, 80);
 };
 
-fract(500, 200, 200, 0);
+// fract(500, 200, startLength, 0);
+
+function refresher(){
+	// setTimeout(function(){}, );
+	var canvas = document.querySelector("canvas");
+	var context = canvas.getContext("2d");
+	context.clearRect(0, 0, 1000, 2500);
+	counter = 0;
+
+	leftLineLengthRatio = Math.random() * 0.5 + 0.45;
+	rightLineLengthRatio = Math.random() * 0.5 + 0.45;
+	leftAngle = Math.floor(Math.random() * 90);
+	rightAngle = Math.floor(Math.random() * 90);
+	thickness = Math.floor(1 + Math.random() * 5);
+	console.log("leftLineLengthRatio " + leftLineLengthRatio + ", rightLineLengthRatio " + rightLineLengthRatio + ", leftAngle " + leftAngle + ", rightAngle " + rightAngle);
+	fract(500, 200, startLength, 0);
+	setTimeout(function(){
+		refresher();
+	}, 3500);
+	
+};
+
+refresher();
 
 
 
