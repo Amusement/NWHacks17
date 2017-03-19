@@ -7,7 +7,8 @@
     "default_icon": "icon.png"
   },
   "chrome_url_overrides": {
-    "newtab": "results.html"
+    // "newtab": "results.html"
+    "newtab": "./test/index.html"
   },
   "permissions": [
     "activeTab",
