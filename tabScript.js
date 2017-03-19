@@ -6,18 +6,29 @@ body.appendChild(button);
 
 button.addEventListener ("click", function() {
 	chrome.tabs.query({active: false}, function(tabs) {
-		var urls = "The urls are:<br />";
-		tabs.forEach(function(item, index, array){
-			urls += "Tab #" + index + ": url: " + item.url + "<br />";
-			urls += "The content settings are: <br />";
-			chrome.contentSettings['images'].get({primaryUrl: item.url}, function (details){
+		var tabsInfo = "The urls are:<br />";
+		// tabs.forEach(function(item, index, array){
+		// 	tabsInfo += "Tab #" + index + ": url: " + item.url + "<br />";
+		// 	tabsInfo += "The content settings are: <br />";
 
-				//This will give you whether the setting is allowed/blocked:
-				// alert("The images setting for " + item.url + " is " + details.setting);
-			});
+		// 	chrome.contentSettings['images'].get({primaryUrl: item.url}, function (details){
 
-		});
-		document.write(urls);
+		// 		//This will give you whether the setting is allowed/blocked:
+		// 		// alert("The images setting for " + item.url + " is " + details.setting);
+		// 	});
+
+		// });
+
+		tabsInfo += "Keys:<br />";
+		for(var key in chrome.contentSettings){
+			if(chrome.contentSettings.hasOwnProperty(key)){
+				tabsInfo += key + ": " 
+								// + chrome.contentSettings.key
+								+ "<br />";
+			}
+		}
+
+		document.write(tabsInfo);
 	});
 
 });
