@@ -19,7 +19,7 @@ $(document).ready(function () {
         {text: "Ruby", count: "123"},
         {text: "D", count: "12"},
         {text: "Python", count: "170"},
-        {text: "C/C++", count: "382"},
+        {text: "image", count: "382"},
         {text: "Pascal", count: "10"},
         {text: "Something", count: "170"},
       ],
