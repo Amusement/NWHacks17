@@ -17,7 +17,8 @@ button.addEventListener ("click", function() {
 			});
 
 		});
-		document.write(urls);
+		// document.write(urls);
+		document.getElementById('my-object').innerHTML += urls;
 	});
 
 });
