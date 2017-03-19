@@ -19,7 +19,21 @@ $(document).ready(function () {
           // console.log(key);1
           if(key.charAt(0) == key.charAt(0).toLowerCase() && counter <= 15){
             counter = counter + 1;
-            theItems.push({text: key, count: counter * 7});
+            var keyText = key.toString();
+
+            var upperIndex = 0;
+            for (i = 1; i < keyText.length; i++){
+              if (keyText.charAt(i).match(/[a-z]/i) && keyText.charAt(i) == keyText.charAt(i).toUpperCase()) {
+                //alert(keyText.charAt(i) + " " + keyText);
+                keyText = keyText.slice(0,i) + " " + keyText.slice(i);
+                break;
+              }
+            }
+            keyText = keyText.charAt(0).toUpperCase() + keyText.slice(1);
+            theItems.push({
+              text: keyText,
+              count: counter * 7
+            });
           }
         });
         return theItems;
